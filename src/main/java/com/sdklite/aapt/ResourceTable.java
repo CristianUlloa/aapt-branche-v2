@@ -86,18 +86,22 @@ public abstract class ResourceTable extends ChunkHeader {
         }
     }
 
-    public abstract class Component extends ChunkHeader {
+    public static abstract class Component extends ChunkHeader
+	{
 
-        public Component(final short type) {
+		private final ResourceTable this$1;
+
+        public Component(final ResourceTable this$1, final short type) {
             super(type);
+			this.this$1 = this$1;
         }
 
         public final ResourceTable getResourceTable() {
-            return ResourceTable.this;
+            return this$1;
         }
     }
 
-    public abstract class Package extends Component {
+    public static abstract class Package extends Component {
 
         public static final int HEADER_SIZE = 288;
 
@@ -127,8 +131,8 @@ public abstract class ResourceTable extends ChunkHeader {
 
         int typeIdOffset;
 
-        public Package() {
-            super(TABLE_PACKAGE);
+        public Package(final ResourceTable this$1) {
+            super(this$1 ,TABLE_PACKAGE);
         }
 
         public int getId() {
@@ -161,7 +165,7 @@ public abstract class ResourceTable extends ChunkHeader {
     /**
      * Describes a particular resource configuration.
      */
-    public final class Config {
+    public static final class Config {
 
         public final class Imsi {
 
@@ -669,7 +673,7 @@ public abstract class ResourceTable extends ChunkHeader {
      * @author johnsonlee
      *
      */
-    public abstract class Type extends Component {
+    public static abstract class Type extends Component {
 
         public static final short HEADER_SIZE = 72;
 
@@ -690,8 +694,8 @@ public abstract class ResourceTable extends ChunkHeader {
 
         int entriesStart;
 
-        public Type() {
-            super(TABLE_TYPE);
+        public Type(final ResourceTable this$1) {
+            super(this$1, TABLE_TYPE);
         }
 
         public abstract ResourceTable.Config getConfig();
@@ -741,7 +745,7 @@ public abstract class ResourceTable extends ChunkHeader {
      * @author johnsonlee
      *
      */
-    public abstract class TypeSpec extends Component {
+    public static abstract class TypeSpec extends Component {
 
         /**
          * Configuration change flags
@@ -761,8 +765,8 @@ public abstract class ResourceTable extends ChunkHeader {
 
         short res1;
 
-        public TypeSpec() {
-            super(TABLE_TYPE_SPEC);
+        public TypeSpec(final ResourceTable this$1) {
+            super(this$1, TABLE_TYPE_SPEC);
         }
 
         public List<Integer> getFlags() {
@@ -822,12 +826,12 @@ public abstract class ResourceTable extends ChunkHeader {
      * @author johnsonlee
      *
      */
-    public class Library extends Component {
+    public static class Library extends Component {
 
         final List<IndexedEntry<String>> entries = new ArrayList<IndexedEntry<String>>();
 
-        public Library() {
-            super(TABLE_LIBRARY);
+        public Library(final ResourceTable this$1) {
+            super(this$1, TABLE_LIBRARY);
         }
 
         public List<IndexedEntry<String>> getEntries() {

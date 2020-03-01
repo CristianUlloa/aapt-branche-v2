@@ -213,7 +213,7 @@ public final class AssetEditor extends StreamEditor {
      *             if error occurred
      */
     public ResourceTable.Package parsePackage(final ResourceTable table) throws IOException {
-        return table.new Package() {
+        return new ResourceTable.Package(table) {
 
             private final StringPool typePool;
             private final StringPool keyPool;
@@ -270,7 +270,7 @@ public final class AssetEditor extends StreamEditor {
      */
     public ResourceTable.TypeSpec parseResourceTableTypeSpec(final ResourceTable.Package pkg) throws IOException {
         final ResourceTable table = pkg.getResourceTable();
-        return table.new TypeSpec() {
+        return new ResourceTable.TypeSpec(table) {
             {
                 parseChunkHeader(this);
 
@@ -314,7 +314,7 @@ public final class AssetEditor extends StreamEditor {
         final long p = tell();
         final ResourceTable table = pkg.getResourceTable();
 
-        return table.new Type() {
+        return new ResourceTable.Type(table) {
             {
                 parseChunkHeader(this);
 
@@ -526,7 +526,7 @@ public final class AssetEditor extends StreamEditor {
      */
     public ResourceTable.Library parseResourceTableLibrary(final ResourceTable.Package pkg) throws IOException {
         final ResourceTable table = pkg.getResourceTable();
-        return table.new Library() {
+        return new ResourceTable.Library(table) {
             {
                 parseChunkHeader(this);
 
